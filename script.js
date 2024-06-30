@@ -1,66 +1,55 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-    loadImages();
-});
+function showExerciseDetails(exercise) {
+    let details = "";
 
-function uploadImage() {
-    const fileInput = document.getElementById('upload-input');
-    const titleInput = document.getElementById('image-title');
-    const file = fileInput.files[0];
-    const title = titleInput.value.trim();
-
-    if (file && file.type.startsWith('image/') && title !== '') {
-        const images = getImages();
-
-        // تحقق من عدم وجود نفس العنوان أو نفس الصورة
-        const isDuplicateTitle = images.some(image => image.title === title);
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const isDuplicateImage = images.some(image => image.src === e.target.result);
-
-            if (isDuplicateTitle || isDuplicateImage) {
-                alert('الصورة أو العنوان موجود بالفعل. يرجى اختيار صورة أو عنوان مختلف.');
-            } else {
-                images.push({ title: title, src: e.target.result });
-                localStorage.setItem('images', JSON.stringify(images));
-                displayImages();
-                titleInput.value = '';
-                fileInput.value = '';
-            }
-        }
-        reader.readAsDataURL(file);
-    } else {
-        alert('يرجى اختيار ملف صورة صحيح وإدخال عنوان للصورة');
+    switch(exercise) {
+        case 'pushup':
+            details = "تمرين الضغط: يعمل على تقوية عضلات الصدر والكتفين. ابدأ بوضعية اللوح الخشبي وقم بخفض جسمك حتى يلامس صدرك الأرض، ثم ادفع نفسك مرة أخرى للوضعية الأولى.";
+            break;
+        case 'squat':
+            details = "تمرين السكوات: يعمل على تقوية عضلات الساقين والأرداف. قف بشكل مستقيم ثم ابدأ بخفض جسمك كما لو كنت تجلس على كرسي، تأكد من الحفاظ على ظهرك مستقيماً.";
+            break;
+        case 'plank':
+            details = "تمرين البلانك: يعزز من قوة عضلات البطن والظهر. ابدأ بوضعية اللوح الخشبي وحافظ على جسمك مستقيماً ومشدوداً لأطول فترة ممكنة.";
+            break;
+        case 'jump_rope':
+            details = "تمرين القفز بالحبل: يعزز من صحة القلب ويحرق السعرات الحرارية. اقفز على الحبل بشكل متواصل لمدة 1-2 دقيقة مع أخذ استراحات قصيرة.";
+            break;
+        case 'lateral_raise':
+            details = "تمرين الرفع الجانبي للدمبل: يعزز من قوة عضلات الكتفين. امسك الدمبل في كل يد وارفع ذراعيك إلى الجانبين حتى يكونوا موازيين للأرض.";
+            break;
+        case 'running':
+            details = "تمرين الجري: يعزز من صحة القلب ويحسن القدرة على التحمل. حاول الجري لمسافات قصيرة في البداية وزيادة المسافة تدريجياً.";
+            break;
+        case 'stationary_bike':
+            details = "تمرين الدراجة الثابتة: يعزز من صحة القلب ويحسن اللياقة البدنية. ابدأ بالتمرين على الدراجة الثابتة لمدة 20-30 دقيقة.";
+            break;
+        case 'stretching':
+            details = "تمرين التمدد: يعزز من المرونة ويقلل من التوتر العضلي. مارس تمارين التمدد لمدة 10-15 دقيقة يومياً.";
+            break;
+        case 'burpee':
+            details = "تمرين البيربي: يعمل على تعزيز القدرة البدنية والتحمل. ابدأ من وضعية الوقوف ثم انزل إلى وضعية اللوح الخشبي وارجع مرة أخرى للوقوف مع القفز.";
+            break;
+        case 'weightlifting':
+            details = "تمرين رفع الأثقال: يعزز من قوة العضلات وكثافة العظام. ابدأ برفع أوزان خفيفة وزد الوزن تدريجياً مع مرور الوقت.";
+            break;
+        case 'swimming':
+            details = "السباحة: تعزز من اللياقة القلبية الوعائية وتقوي عضلات الجسم. حاول السباحة لمدة 30 دقيقة إلى ساعة 3 مرات في الأسبوع.";
+            break;
+        case 'bodyweight_squat':
+            details = "تمرين القرفصاء بوزن الجسم: يعزز من قوة الساقين والوركين. قف بشكل مستقيم ثم ابدأ بخفض جسمك كما لو كنت تجلس على كرسي بدون استخدام أوزان.";
+            break;
+        case 'rear_delt_raise':
+            details = "تمرين الرفع الخلفي للدمبل: يعزز من قوة عضلات الظهر العلوية. انحني قليلاً إلى الأمام وارفع الدمبل إلى الجانبين للخلف.";
+            break;
+        case 'bear_crawl':
+            details = "تمرين الزحف: يعمل على تقوية العضلات الأساسية وتحسين التنسيق. ابدأ بوضعية اللوح الخشبي وابدأ بالزحف للأمام والخلف.";
+            break;
+        case 'rowing':
+            details = "تمرين التجديف: يعزز من اللياقة القلبية الوعائية ويقوي عضلات الجسم. استخدم آلة التجديف أو قم بمحاكاة التجديف باستخدام دمبل.";
+            break;
+        default:
+            details = "تفاصيل التمرين غير متوفرة.";
     }
-}
 
-function getImages() {
-    const images = localStorage.getItem('images');
-    return images ? JSON.parse(images) : [];
-}
-
-function loadImages() {
-    displayImages();
-}
-
-function displayImages() {
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = '';
-    const images = getImages();
-    images.forEach((image, index) => {
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-        item.innerHTML = `
-            <img src="${image.src}" alt="${image.title}">
-            <h3>${image.title}</h3>
-            <button onclick="deleteImage(${index})">حذف</button>
-        `;
-        gallery.appendChild(item);
-    });
-}
-
-function deleteImage(index) {
-    const images = getImages();
-    images.splice(index, 1);
-    localStorage.setItem('images', JSON.stringify(images));
-    displayImages();
+    alert(details);
 }
