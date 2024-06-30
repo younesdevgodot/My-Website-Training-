@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع لمشاركة الصور</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>تخزين الصور في المتصفح</h1>
+        <div class="upload-container">
+            <input type="text" id="image-title" placeholder="أدخل عنوان الصورة">
+            <input type="file" id="upload-input" accept="image/*">
+            <button onclick="uploadImage()">تحميل الصورة</button>
+        </div>
+        <div class="gallery-container">
+            <div class="gallery" id="gallery"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
